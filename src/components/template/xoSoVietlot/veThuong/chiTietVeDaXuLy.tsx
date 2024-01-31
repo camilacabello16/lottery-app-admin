@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import useBLE from '../../../../hooks/useBLE';
 import { useDispatch, useSelector } from 'react-redux';
 import { convertToStringMarco } from '../../../../utils/convertToStringMarco';
-import { KENO_ODD_ID, MARCO_BAO_TYPE } from '../../../../constants/marcoSymbol';
+import { KENO_ODD_CHAR, KENO_ODD_ID, MARCO_BAO_TYPE } from '../../../../constants/marcoSymbol';
 import { alert } from '@baronha/ting';
 import { incrementByAmount } from '../../../../redux/amountStore';
 
@@ -216,7 +216,7 @@ const ChiTietVeDaXuLy: React.FC = ({ route }: any) => {
 
             var indices = [];
             for (var i = 0; i < convertString.length; i++) {
-                if (convertString[i] === "f") indices.push(i);
+                if (convertString[i] === KENO_ODD_CHAR) indices.push(i);
             }
 
             if (numberTicket == 1) {
@@ -571,7 +571,7 @@ const ChiTietVeDaXuLy: React.FC = ({ route }: any) => {
 
             var indices = [];
             for (var i = 0; i < convertString.length; i++) {
-                if (convertString[i] === "f") indices.push(i);
+                if (convertString[i] === KENO_ODD_CHAR) indices.push(i);
             }
 
             if (numberTicket == 1) {
@@ -579,179 +579,228 @@ const ChiTietVeDaXuLy: React.FC = ({ route }: any) => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 1000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, convertString?.length - 2));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, beginChar + 2));
                 }, 2000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 2]);
-                }, 3000);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 2, convertString?.length - 2));
+                }, 2000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 1]);
-                }, 4000);
+                    writeMessageToCharacteristic(bleData.devices[0], (convertString[convertString?.length - 2] + convertString[convertString?.length - 1]));
+                }, 3000);
+                // setTimeout(() => {
+                //     writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 1]);
+                // }, 4000);
             }
             else if (numberTicket == 2) {
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 1000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, indices[1]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, beginChar + 2));
                 }, 2000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 2, indices[1]));
                 }, 3000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, convertString?.length - 2));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 4000);
-                // print 2 last character
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 2]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[1] + 2));
                 }, 5000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 1]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 2, convertString?.length - 2));
                 }, 6000);
+                // print 2 last character
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], (convertString[convertString?.length - 2] + convertString[convertString?.length - 1]));
+                }, 7000);
             }
             else if (numberTicket == 3) {
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 1000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, indices[1]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, beginChar + 2));
                 }, 2000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 2, indices[1]));
                 }, 3000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[2]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 4000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[1] + 2));
                 }, 5000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, convertString?.length - 2));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 2, indices[2]));
                 }, 6000);
-                // print 2 last character
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 2]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 7000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 1]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, indices[2] + 2));
                 }, 8000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 2, convertString?.length - 2));
+                }, 9000);
+                // print 2 last character
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], (convertString[convertString?.length - 2] + convertString[convertString?.length - 1]));
+                }, 10000);
             }
             else if (numberTicket == 4) {
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 1000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, indices[1]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, beginChar + 2));
                 }, 2000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 2, indices[1]));
                 }, 3000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[2]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 4000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[1] + 2));
                 }, 5000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, indices[3]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 2, indices[2]));
                 }, 6000);
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 7000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 1, convertString?.length - 2));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, indices[2] + 2));
                 }, 8000);
-                // print 2 last character
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 2]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 2, indices[3]));
                 }, 9000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 1]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 10000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 1, indices[3] + 2));
+                }, 11000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 2, convertString?.length - 2));
+                }, 12000);
+                // print 2 last character
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], (convertString[convertString?.length - 2] + convertString[convertString?.length - 1]));
+                }, 13000);
             }
             else if (numberTicket == 5) {
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 1000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, indices[1]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, beginChar + 2));
                 }, 2000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 2, indices[1]));
                 }, 3000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[2]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 4000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[1] + 2));
                 }, 5000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, indices[3]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 2, indices[2]));
                 }, 6000);
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 7000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 1, indices[4]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, indices[2] + 2));
                 }, 8000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 2, indices[3]));
                 }, 9000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[4] + 1, convertString?.length - 2));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 10000);
-                // print 2 last character
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 2]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 1, indices[3] + 2));
                 }, 11000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 1]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 2, indices[4]));
                 }, 12000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                }, 13000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[4] + 1, indices[4] + 2));
+                }, 14000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[4] + 2, convertString?.length - 2));
+                }, 15000);
+                // print 2 last character
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], (convertString[convertString?.length - 2] + convertString[convertString?.length - 1]));
+                }, 16000);
             }
             else if (numberTicket == 6) {
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 1000);
+                // chon kieu
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, indices[1]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 1, beginChar + 2));
                 }, 2000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(beginChar + 2, indices[1]));
                 }, 3000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[2]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 4000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 1, indices[1] + 2));
                 }, 5000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, indices[3]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[1] + 2, indices[2]));
                 }, 6000);
                 setTimeout(() => {
                     writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 7000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 1, indices[4]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 1, indices[2] + 2));
                 }, 8000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[2] + 2, indices[3]));
                 }, 9000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[4] + 1, indices[5]));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 10000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 1, indices[3] + 2));
                 }, 11000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[5] + 1, convertString.length - 2));
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[3] + 2, indices[4]));
                 }, 12000);
-                // print 2 last character
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 2]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
                 }, 13000);
                 setTimeout(() => {
-                    writeMessageToCharacteristic(bleData.devices[0], convertString[convertString?.length - 1]);
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[4] + 1, indices[4] + 2));
                 }, 14000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[4] + 2, indices[5]));
+                }, 15000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString[beginChar]);
+                }, 16000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[5] + 1, indices[5] + 2));
+                }, 17000);
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], convertString.substring(indices[5] + 2, convertString.length - 2));
+                }, 18000);
+                // print 2 last character
+                setTimeout(() => {
+                    writeMessageToCharacteristic(bleData.devices[0], (convertString[convertString?.length - 2] + convertString[convertString?.length - 1]));
+                }, 19000);
             }
             setIsPrint(true);
         }

@@ -219,7 +219,8 @@ export const KENO_ODD_SYMBOL = [
         key: "keno_odd",
         value: "8"
     },
-]
+];
+export const KENO_ODD_CHAR = 'F';
 
 //xsdt
 

@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const { MARCO_LOTTERY_TYPE, MARCO_PRICE, MARCO_BAO_TYPE, MARCO_BAO, MARCO_PERIOD, PERIOD_TIME, BAN_VE, XSDT_TYPE, XSDT_SERIES_NUMBER, TU_CHON, XSDT_NUMBER, HOAN_TAT, XSDT_PRICE, XSDT_PERIOD, BAN_VE_BOTTOM, GUI_DI, KENO_ODD_ID, KENO_ODD_SYMBOL } = require("../constants/marcoSymbol");
+const { MARCO_LOTTERY_TYPE, MARCO_PRICE, MARCO_BAO_TYPE, MARCO_BAO, MARCO_PERIOD, PERIOD_TIME, BAN_VE, XSDT_TYPE, XSDT_SERIES_NUMBER, TU_CHON, XSDT_NUMBER, HOAN_TAT, XSDT_PRICE, XSDT_PERIOD, BAN_VE_BOTTOM, GUI_DI, KENO_ODD_ID, KENO_ODD_SYMBOL, KENO_ODD_CHAR } = require("../constants/marcoSymbol");
 
 //vietlott
 export const convertToStringMarco = (ticketDetail) => {
@@ -16,37 +16,37 @@ export const convertToStringMarco = (ticketDetail) => {
                     var lastCha = '';
                     lottery.code.forEach(c => {
                         var charOdd = KENO_ODD_SYMBOL.find(x => x.key == c).value;
-                        result += 'f' + charOdd;
+                        result += KENO_ODD_CHAR + charOdd;
                         lastCha = charOdd;
                     });
                     priceSymbol = priceSymbol == '' ? '!' : priceSymbol;
-                    if (lastCha[lastCha.length - 1] == '1' && priceSymbol == "!") {
-                        priceSymbol += '!';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '2' && priceSymbol == "@") {
-                        priceSymbol += '@';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '3' && priceSymbol == "#") {
-                        priceSymbol += '#';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '4' && priceSymbol == "$") {
-                        priceSymbol += '$';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '5' && priceSymbol == "%") {
-                        priceSymbol += '%';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '6' && priceSymbol == "^") {
-                        priceSymbol += '^';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '7' && priceSymbol == "&") {
-                        priceSymbol += '&';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '8' && priceSymbol == "*") {
-                        priceSymbol += '*';
-                    }
-                    else if (lastCha[lastCha.length - 1] == '9' && priceSymbol == "(") {
-                        priceSymbol += '('; x
-                    }
+                    // if (lastCha[lastCha.length - 1] == '1' && priceSymbol == "!") {
+                    //     priceSymbol += '!';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '2' && priceSymbol == "@") {
+                    //     priceSymbol += '@';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '3' && priceSymbol == "#") {
+                    //     priceSymbol += '#';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '4' && priceSymbol == "$") {
+                    //     priceSymbol += '$';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '5' && priceSymbol == "%") {
+                    //     priceSymbol += '%';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '6' && priceSymbol == "^") {
+                    //     priceSymbol += '^';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '7' && priceSymbol == "&") {
+                    //     priceSymbol += '&';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '8' && priceSymbol == "*") {
+                    //     priceSymbol += '*';
+                    // }
+                    // else if (lastCha[lastCha.length - 1] == '9' && priceSymbol == "(") {
+                    //     priceSymbol += '('; x
+                    // }
                     result += priceSymbol;
                     if (lottery != ticketDetail.lotteries[ticketDetail.lotteries.length - 1]) {
                         result += "[";
