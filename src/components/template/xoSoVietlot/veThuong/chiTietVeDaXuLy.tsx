@@ -152,11 +152,11 @@ const ChiTietVeDaXuLy: React.FC = ({ route }: any) => {
     const { writeMessageToCharacteristic } = useBLE();
     const bleData = useSelector((state: any) => state.bluetooth);
     const navigation = useNavigation();
-    const [isPrint, setIsPrint] = useState<boolean>(false);
-    const [isTakePicture, setIsTakePicture] = useState<boolean>(false);
-    const [listImage, setListImage] = useState<any[]>([]);
+    const [isPrint, setIsPrint] = useState < boolean > (false);
+    const [isTakePicture, setIsTakePicture] = useState < boolean > (false);
+    const [listImage, setListImage] = useState < any[] > ([]);
 
-    const [orderDetail, setOrderDetail] = useState<ticketDetail>();
+    const [orderDetail, setOrderDetail] = useState < ticketDetail > ();
 
     const getDetail = () => {
         if (route?.params?.orderId) {
@@ -211,8 +211,8 @@ const ChiTietVeDaXuLy: React.FC = ({ route }: any) => {
         writeMessageToCharacteristic(bleData.devices[0], convertString[0]);
         var beginChar = 1;
         var addedTime = 1000;
-        if (KENO_ODD_ID.includes(order.subType)) { // keno dac biet
-            var numberTicket = order.lotteries.length;
+        if (KENO_ODD_ID.includes(orderDetail.subType)) { // keno dac biet
+            var numberTicket = orderDetail.lotteries.length;
 
             var indices = [];
             for (var i = 0; i < convertString.length; i++) {
